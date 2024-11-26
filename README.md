@@ -1,1 +1,1 @@
-# DeNovoGene_Transcriptional_Regulation
+# Transcriptional regulation of de novo genes in D. melanogaster

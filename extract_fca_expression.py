@@ -6,8 +6,6 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
 import scanpy as sc
-from sklearn.decomposition import PCA,FastICA,SparsePCA
-from sklearn.cluster import KMeans,AgglomerativeClustering
 
 def read_loom(fdata):
     adata = sc.read_loom(fdata,validate=False)

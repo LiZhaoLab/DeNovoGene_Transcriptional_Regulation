@@ -13,7 +13,7 @@ Scripts
 - visualize the transcriptional regulatory network.  
 - analyze the complexity of transcriptional regulations.  
   
-Files  
+Required files  
     `all_fca_genes.validation.csv`  
     `fca_testis_biased_genes.csv`  
     `denovo_candidates.name.csv`  
@@ -21,3 +21,15 @@ Files
     `denovo_regulons_combined.pickle`  
   
 Note: Additional dataset can be downloaded from Fly Cell Atlas (https://flycellatlas.org) and cisTarget database (https://resources.aertslab.org/cistarget/databases/)
+
+Required packages  
+```
+python=3.7.12
+numpy=1.19.5
+seaborn=0.12.2
+networkx=2.5
+matplotlib=3.5.3
+scanpy=1.9.1
+scipy=1.7.1
+pandas=1.3.5
+```

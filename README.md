@@ -6,11 +6,11 @@ This repo contains files and scripts to:
   
 Scripts  
 `extract_fca_expression.py`  
-    1. extract sub expression matrix that (a) includes only the counts of transcription factors, de novo gene candidates, and testis-biased genes in each cell, and (b) filtered out cells where no de novo genes were expressed and transcription factors were lowly expressed.  
-    2. analyze and plot the cell numbers and ratios of original and final expression matrix  
+        1. extract sub expression matrix that (a) includes only the counts of transcription factors, de novo gene candidates, and testis-biased genes in each cell, and (b) filtered out cells where no de novo genes were expressed and transcription factors were lowly expressed.  
+        2. analyze and plot the cell numbers and ratios of original and final expression matrix  
 `network_analysis.py`  
-    1. visualize the transcriptional regulatory network.  
-    2. analyze the complexity of transcriptional regulations.  
+        1. visualize the transcriptional regulatory network.  
+        2. analyze the complexity of transcriptional regulations.  
   
 Files  
 `all_fca_genes.validation.csv`  

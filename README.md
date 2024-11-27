@@ -6,7 +6,9 @@ This repo contains files and scripts to:
   
 ## Scripts  
 `extract_fca_expression.py`  
-- extract sub expression matrix that (a) includes only the counts of transcription factors, de novo gene candidates, and testis-biased genes in each cell, and (b) filtered out cells where no de novo genes were expressed and transcription factors were lowly expressed.  
+- extract sub expression matrix that:  
+  (a) includes only the counts of transcription factors, de novo gene candidates, and testis-biased genes in each cell, and   
+  (b) filtered out cells where no de novo genes were expressed and transcription factors were lowly expressed.  
 - analyze and plot the cell numbers and ratios of original and final expression matrix  
 - compute zscore matrix by different features: `tissue`,`annotation_broad`, and `annotation`. The three features corresponds to different tissue types, major cell types, and more specific cell types.
 

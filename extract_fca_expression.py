@@ -30,6 +30,35 @@ def get_testis_biased_genes(flist="fca_testis_biased_genes.csv"):
     testis_biased_genes = df["fca_sym"].tolist()
     return testis_biased_genes
 
+def filter_matrix(loom_data,tf_names,denovo_genes,testis_biased):
+    ## subgenes ##
+    subgenes = []
+    for g in tf_names + denovo_genes:
+        if g in loom_data.var.index:
+            subgenes.append(g)
+
+    ## subgenes2 ##
+    subgenes2 = {}
+    for g in tf_names + denovo_genes + testis_biased:
+        if g in loom_data.var.index:
+            subgenes2[g] = 1
+    subgenes2 = [g for g in subgenes2]
+
+    ## get matrix ##
+    m,n = loom_data.X.shape
+    matrix = np.zeros((m,n))
+    matrix += loom_data.X
+
+    df_mat = pd.DataFrame(matrix,
+                            columns=loom_data.var.index,)
+                            #index=loom_data.obs['annotation_broad'])
+                            #index=loom_data.obs.index)
+
+    expmat = expmat.loc[(df_mat[valid_denovo_genes].max(axis=1)>=5) 
+                        & (df_mat[valid_tf_names].max(axis=1)>=20)]
+    expsub = expmat[subgenes2].copy()
+    expsub.to_csv("subgenes2.csv")
+
 def plot_cells(ratio,category="tissue"):
     fig,axes = plt.subplots(1,2,figsize=(5,3.6))
     ax = axes[0]
@@ -85,42 +114,87 @@ def stat_and_plot_cells(loom_data,expsub,category="tissue"):
 
     plot_cells(ratio,category=category)
 
+def matrix_by_feature(loom_data,matrix,denovo_genes,
+                      feature='tissue',dtype="loom"):
+    """
+        Z-score by feature
+    """
+    index = adata.obs[feature]
+    if dtype=="h5ad":
+        genes = adata.raw.var.index
+    elif dtype=="loom":
+        genes = adata.var.index
+
+    m,n = X.shape
+
+    df = pd.DataFrame(matrix,columns=genes,index=index)
+    groups = [s for s in adata.obs[feature].unique() if s!='unannotated' and s!='artefact']
+
+    ## expression matrix ##
+    ndenovo = len(denovo_genes)
+    dfm = []
+    for grp in groups:
+        sub_df  = df.loc[grp,:]
+        sub_mat = np.zeros(sub_df.shape)
+        sub_mat += sub_df
+        #print(sub_mat)
+        print(grp,sub_mat.shape)
+
+        #dfm[grp] = sub_mat
+        sub_sum = sub_mat.sum().sum()
+        expscale = np.zeros(ndenovo)
+        for i in range(ndenovo):
+            gene = denovo_genes[i]
+            if gene in genes:
+                datai = np.array(sub_mat[gene])
+                #print(np.sum(datai),sub_sum)
+                expscale[i] = (np.sum(datai)*100)/sub_sum
+        dfm.append(expscale)
+    dfm = np.array(dfm)
+    dfm = pd.DataFrame(dfm,index=groups,columns=denovo_genes)
+    
+        ## construct zscore matrix ##
+    expressed_genes = []
+    for gene in denovo_genes:
+        if np.sum(dfm[gene])>0:
+            expressed_genes.append(gene)
+    mat = dfm[expressed_genes]
+
+    means = mat.mean(axis=0)
+    var_mat  = mat-means
+    var_mat2 = np.square(var_mat)
+    print('Finished variance matrix calculation')
+    M,N = mat.shape
+
+    ## construct zscore matrix
+    var_sum = var_mat2.sum(axis=0)
+    std_column = np.sqrt(var_sum/M)
+    print('Finished standard deviation calculation')
+
+    zscore_matrix = (mat-means)/std_column
+    print('Finished Zscore calculation')
+    zscore_matrix.to_csv("denovo_zmat_%s.csv"%feature)
+
+    return zscore_matrix
+
+
 
 if __name__ == "__main__":
 
-    fdata = '../../RAWDATA/r_fca_biohub_all_wo_blood_10x.loom'
+    fdata = './RAWDATA/r_fca_biohub_all_wo_blood_10x.loom'
     loom_data = read_loom(fdata)
 
+    ## filter matrix
+    tf_names = get_tflist()
     denovo_genes = get_denovo_genes()
     testis_biased = get_testis_biased_genes()
 
-    ## subgenes ##
-    tf_names = get_tflist()
-    subgenes = []
-    for g in tf_names + denovo_genes:
-        if g in loom_data.var.index:
-            subgenes.append(g)
+    matrix,expsub  = filter_matrix(loom_data,tf_names,denovo_genes,
+                                    testis_biased)
 
-    ## subgenes2 ##
-    subgenes2 = {}
-    for g in tf_names + denovo_genes + testis_biased:
-        if g in loom_data.var.index:
-            subgenes2[g] = 1
-    subgenes2 = [g for g in subgenes2]
-
-    ## get matrix ##
-    m,n = loom_data.X.shape
-    matrix = np.zeros((m,n))
-    matrix += loom_data.X
-
-    matrix = pd.DataFrame(matrix,
-                            columns=loom_data.var.index,)
-                            #index=loom_data.obs['annotation_broad'])
-                            #index=loom_data.obs.index)
-
-    expmatrix = matrix.loc[(matrix[valid_denovo_genes].max(axis=1)>=5) & (matrix[valid_tf_names].max(axis=1)>=20)]
-    expsub = expmatrix[subgenes2].copy()
-    expsub.to_csv("subgenes2.csv")
-
+    ## stat cell numbers and ratios
     stat_and_plot_cells(loom_data,expsub,category="tissue")
     stat_and_plot_cells(loom_data,expsub,category="annotation_broad")
+
+    ## Z-scores across different tissues/celltypes
+    zscore_annotation = matrix_by_feature(loom_data,matrix,denovo_genes,feature="annotation",dtype="loom")

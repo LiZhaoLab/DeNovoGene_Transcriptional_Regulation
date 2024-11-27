@@ -59,6 +59,8 @@ def filter_matrix(loom_data,tf_names,denovo_genes,testis_biased):
     expsub = expmat[subgenes2].copy()
     expsub.to_csv("subgenes2.csv")
 
+    return matrix,expsub
+
 def plot_cells(ratio,category="tissue"):
     fig,axes = plt.subplots(1,2,figsize=(5,3.6))
     ax = axes[0]

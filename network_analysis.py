@@ -1,7 +1,7 @@
 """ 
     De novo gene transcriptional regulation network by specific input TFs.
     For better visualizaiton, we only include (1) input TFs, (2) their direct 
-    de novo gene targets, and possible secondary TFs that are regulated
+    de novo gene targets, and (3) possible secondary TFs that are regulated
     directly by gene set (1), and also directly regulate gene set (2).
 """
 

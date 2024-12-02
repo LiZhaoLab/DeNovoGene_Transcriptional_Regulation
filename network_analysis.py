@@ -3,6 +3,10 @@
     For better visualizaiton, we only include (1) input TFs, (2) their direct 
     de novo gene targets, and (3) possible secondary TFs that are regulated
     directly by gene set (1), and also directly regulate gene set (2).
+
+    Note: We only include these gene sets as plotting the whole regulatory 
+          network may result in a messy network that is difficult to interpret.
+          For further network analysis, we used the whole regulatory network.
 """
 
 import matplotlib.pyplot as plt
@@ -30,9 +34,6 @@ class Regulon():
         self.annotation = {inp.context:inp.annotation}
         self.occurrence = 1
 
-"""
-    plot the regulatory network as a whole may result in a messy network that is difficult to interpret
-"""
 def get_regulon(tf,data):
     reg = {}
     for d in data:

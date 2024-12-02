@@ -6,12 +6,10 @@
        make sure that they do not appear randomly.
 """
 
-import json,zlib,base64,os,numba,pickle
+import os,pickle
 
 import numpy as np
 import pandas as pd
-
-import matplotlib.pyplot as plt
 
 def get_genelist(flist='denovo_candidates.name.txt'):
     genelist = []

@@ -31,7 +31,8 @@ This repo contains files and scripts to:
    raw_predictions/
    ``` 
   
-Note: The folder `raw_predictions` contains the individual pyscenic Regulon analysis. Additional datasets:
+Note: The folder `raw_predictions` contains the individual pyscenic Regulon analysis.  
+Additional datasets that are required can be downloaded from other resources:  
 1. `r_fca_biohub_all_wo_blood_10x.loom` can be downloaded from Fly Cell Atlas (https://flycellatlas.org) and
 2. `allTFs_dmel.txt` can be downloaded from cisTarget database (https://resources.aertslab.org/cistarget/databases/)
 

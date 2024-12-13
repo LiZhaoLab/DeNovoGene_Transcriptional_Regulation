@@ -56,6 +56,8 @@ pandas=1.3.5
 ```  
 R  
 ```
+Rstudio=2024.09.0+375
+R=4.4.1
 ggplot2
 ggpubr
 car

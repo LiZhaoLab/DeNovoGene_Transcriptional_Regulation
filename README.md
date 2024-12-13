@@ -19,7 +19,12 @@ This repo contains files and scripts to:
 
 `network_analysis.py`  
 - visualize the transcriptional regulatory network.  
-- analyze the complexity of transcriptional regulations.  
+- analyze the complexity of transcriptional regulations. 
+
+`regression_and_AIC_analysis.R`  
+- regression analysis between vis expression and other target genes across different RNA-seq samples.  
+- AIC model for different regression analysis. the AIC analysis identified T~V as the best fit model.  
+- visulization of the regression analysis. the figures including Figure 4 and Figure S8 in our original manuscript
   
 ## Required files  
    ```

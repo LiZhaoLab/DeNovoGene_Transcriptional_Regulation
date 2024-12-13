@@ -43,6 +43,7 @@ Additional datasets that are required can be downloaded from other resources:
 3. We have included some essential files from cisTarget database in this repo, including `allTFs_dmel.txt`, `dm6_v10_clust.genes_vs_motifs.rankings.feather`, and `dm6_v10_clust.genes_vs_motifs.scores.feather`
 
 ## Required packages  
+python  
 ```
 python=3.7.12
 numpy=1.19.5
@@ -52,4 +53,22 @@ matplotlib=3.5.3
 scanpy=1.9.1
 scipy=1.7.1
 pandas=1.3.5
+```  
+R  
+```
+ggplot2
+ggpubr
+car
+dplyr
+plyr
+data.table
+stringr 
+reshape2
+qvalue
+scales
+ggiraph
+ggiraphExtra
+plotrix   
+AICcmodavg
+cowplot
 ```

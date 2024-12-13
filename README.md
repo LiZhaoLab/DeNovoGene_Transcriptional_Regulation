@@ -34,7 +34,8 @@ This repo contains files and scripts to:
 Note: The folder `raw_predictions` contains the individual pyscenic Regulon analysis.  
 Additional datasets that are required can be downloaded from other resources:  
 1. `r_fca_biohub_all_wo_blood_10x.loom` can be downloaded from Fly Cell Atlas (https://flycellatlas.org) and
-2. `allTFs_dmel.txt` can be downloaded from cisTarget database (https://resources.aertslab.org/cistarget/databases/)
+2. `allTFs_dmel.txt` can be downloaded from cisTarget database (https://resources.aertslab.org/cistarget/databases/)  
+3. We have included some essential files from cisTarget database in this repo, including `allTFs_dmel.txt`, `dm6_v10_clust.genes_vs_motifs.rankings.feather`, and `dm6_v10_clust.genes_vs_motifs.scores.feather`
 
 ## Required packages  
 ```

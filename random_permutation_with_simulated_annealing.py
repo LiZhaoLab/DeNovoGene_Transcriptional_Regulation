@@ -21,6 +21,7 @@ import matplotlib.pyplot as plt
 
 import os,sys
 
+## optional, rebuild font cache ##
 fontfile = "/ru-auth/local/home/jpeng/.cache/matplotlib/fontlist-v330.json"
 if os.path.isfile(fontfile):
     print(fontfile)
@@ -29,6 +30,7 @@ import matplotlib.font_manager
 matplotlib.get_cachedir()
 matplotlib.rcParams['font.family'] = ['arial']
 
+## useful functions ##
 def get_num_biased(zmat,zcut,fbgn2fca,fbidlist):
     num = 0
     tot = 0
@@ -45,7 +47,7 @@ def get_num_biased(zmat,zcut,fbgn2fca,fbidlist):
             pass
     return num*1.0/tot
 
-def get_genes(flist='/ru-auth/local/home/jpeng/cactus/fdr000001_candidates.names.txt'):
+def get_genes(flist='input.txt'):
     genelist = []
     lines = open(flist,'r')
     for line in lines:
@@ -58,7 +60,7 @@ def convert_fca2fbgn(f="all_fca_genes.validation.csv"):
     fbgn2fca = dict(zip(df["FBgn"],df["fca_sym"]))
     return fca2fbgn,fbgn2fca
 
-denovo_genes = get_genes("../compare_tau/fdr000001_candidates_20230502.fbid.txt")
+denovo_genes = get_genes("fdr000001_candidates_20230502.fbid.txt")
 
 fca2fbgn,fbgn2fca = convert_fca2fbgn()
 fca2fbgn,fbgn2fca = convert_fca2fbgn()
@@ -92,8 +94,8 @@ for n in range(nsteps):
     rng_hist_min = []
 
     if n==0:
-        hist2plot_dng  = [d for d in dng_hist]
-        hist2plot_rng0 = [d for d in rng_hist]
+        hist2plot_dng  = [d for d in dng_hist] # random permutated de novo genes
+        hist2plot_rng0 = [d for d in rng_hist] # not expression matched non-de novo genes
     
     print(f"step {n}","iter 0",l1norm0)
     existed = {g:1 for g in list_rng}

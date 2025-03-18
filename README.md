@@ -21,6 +21,9 @@ This repo contains files and scripts to:
 - visualize the transcriptional regulatory network.  
 - analyze the complexity of transcriptional regulations. 
 
+`random_permutation_with_simulated_annealing.py`
+- select random list of genes that match the expression distribution of de novo genes by random permutation with simulated annealing.
+
 `regression_and_AIC_analysis.R`  
 - regression analysis between vis expression and other target genes across different RNA-seq samples.  
 - AIC model for different regression analysis. the AIC analysis identified T~V as the best fit model.  
